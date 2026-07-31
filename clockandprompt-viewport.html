@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #2c3e50;
+            --accent-color: #e74c3c;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Classroom-optimized text sizes */
+        h1 {
+            font-size: 8vh; /* Scales with screen height */
+            margin-bottom: 2vh;
+            font-weight: 800;
+        }
+
+        p {
+            font-size: 4vh;
+            max-width: 80%;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .clock {
+            font-size: 12vh;
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 4vh 0;
+        }
+
+        .timer-container {
+            font-size: 6vh;
+            background: #f8f9fa;
+            padding: 3vh 5vh;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        input[type="number"] {
+            font-size: 5vh;
+            width: 10vh;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        button {
+            font-size: 3vh;
+            padding: 1.5vh 3vh;
+            margin-left: 1vh;
+            cursor: pointer;
+            border-radius: 10px;
+            border: none;
+            background-color: var(--text-color);
+            color: white;
+        }
+
+        button:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+
+    <h1>Discussion Phase</h1>
+    <p>Please share your primary research findings with your partner. Focus on the methodology section.</p>
+
+    <div id="clock" class="clock">00:00:00</div>
+
+
+    <script>
+        // 24-Hour Clock Logic
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString('en-GB', {
+                hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+            });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+    </script>
+</body>
+</html>
