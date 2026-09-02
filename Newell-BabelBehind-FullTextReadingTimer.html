@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #2c3e50;
+            --accent-color: #e74c3c;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Classroom-optimized text sizes */
+        h1 {
+            font-size: 8vh; /* Scales with screen height */
+            margin-bottom: 2vh;
+            font-weight: 800;
+        }
+
+        p {
+            font-size: 4vh;
+            max-width: 80%;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .clock {
+            font-size: 12vh;
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 4vh 0;
+        }
+
+        .timer-container {
+            font-size: 6vh;
+            background: #f8f9fa;
+            padding: 3vh 5vh;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        input[type="number"] {
+            font-size: 5vh;
+            width: 10vh;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        button {
+            font-size: 3vh;
+            padding: 1.5vh 3vh;
+            margin-left: 1vh;
+            cursor: pointer;
+            border-radius: 10px;
+            border: none;
+            background-color: var(--text-color);
+            color: white;
+        }
+
+        button:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+
+    <h1>Full text: Reading time</h1>
+    <p>Leaving Babel Behind<br>
+    by Anthony P. Newell</p>
+
+
+    <div class="timer-container">
+        <input type="number" id="minutes" value="10">
+        <span id="display">10:00</span>
+        <button onclick="startTimer()">Start</button>
+        <button onclick="resetTimer()">Reset</button>
+    </div>
+
+    <script>
+        // Timer Logic
+        let timerInterval;
+        function startTimer() {
+            clearInterval(timerInterval);
+            let time = document.getElementById('minutes').value * 60;
+            const display = document.getElementById('display');
+
+            timerInterval = setInterval(() => {
+                let mins = Math.floor(time / 60);
+                let secs = time % 60;
+                display.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                if (time <= 0) {
+                    clearInterval(timerInterval);
+                    display.style.color = "red";
+                }
+                time--;
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            const mins = document.getElementById('minutes').value;
+            document.getElementById('display').innerText = `${mins.padStart(2, '0')}:00`;
+            document.getElementById('display').style.color = "inherit";
+        }
+    </script>
+</body>
+</html>
