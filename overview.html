@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Repository Overview</title>
+  <style>
+    body { font-family: sans-serif; margin: 2rem; }
+    ul { list-style-type: disc; padding-left: 1.5rem; }
+    li { margin: 0.35rem 0; }
+  </style>
+</head>
+<body>
+  <h2>Available Pages</h2>
+  <ul id="file-list">Loading pages...</ul>
+
+  <script>
+    const OWNER = 'YOUR_GITHUB_USERNAME';
+    const REPO = 'YOUR_REPO_NAME';
+    const BRANCH = 'main'; // or 'gh-pages'
+
+    async function loadDirectory() {
+      const listElement = document.getElementById('file-list');
+      try {
+        // Fetch full recursive file tree from GitHub API
+        const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`);
+        const data = await res.json();
+
+        listElement.innerHTML = '';
+
+        data.tree
+          .filter(item => item.type === 'blob' && (item.path.endsWith('.html') || item.path.endsWith('.md')))
+          .filter(item => !item.path.includes('404') && item.path !== 'index.html')
+          .forEach(item => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            
+            // Map file path to relative site URL
+            let href = item.path.replace(/\.md$/, '.html');
+            if (href.endsWith('index.html')) {
+              href = href.replace('index.html', '');
+            }
+
+            a.href = `./${href}`;
+            a.textContent = item.path;
+            li.appendChild(a);
+            listElement.appendChild(li);
+          });
+      } catch (err) {
+        listElement.textContent = 'Failed to load page index.';
+      }
+    }
+
+    loadDirectory();
+  </script>
+</body>
+</html>
