@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #2c3e50;
+            --accent-color: #e74c3c;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Classroom-optimized text sizes */
+        h1 {
+            font-size: 6vh; /* Scales with screen height */
+            margin-bottom: 2vh;
+            font-weight: 800;
+        }
+
+        p {
+            font-size: 4vh;
+            max-width: 80%;
+            line-height: 1.4;
+            text-align: left;
+        }
+
+        .clock {
+            font-size: 6vh;
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 4vh 0;
+        }
+
+        .timer-container {
+            font-size: 6vh;
+            background: #f8f9fa;
+            padding: 3vh 5vh;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        input[type="number"] {
+            font-size: 5vh;
+            width: 10vh;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        button {
+            font-size: 3vh;
+            padding: 1.5vh 3vh;
+            margin-left: 1vh;
+            cursor: pointer;
+            border-radius: 10px;
+            border: none;
+            background-color: var(--text-color);
+            color: white;
+        }
+
+        button:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+
+<h1>Quickwrite 1: Please finish by 14:50.</h1>
+<p>Based on your very extensive language learning experience, what do you think it means to “know” a word? Describe in very concrete terms how you think you would confirm or deny that you “know” a word. Then expand on that idea with broader comments on a) how that “knowing” fits or doesn’t fit with Eisenberg’s ideas about vocabulary learning and b) how generative AI on an internet connected device may impact that “knowing” in the near future.</p>
+<p>Your response should have at least 3 well-formed paragraphs. It should also reference at least one point in the original text, either by direct quote or paraphrase. This prompt may be a bit too long, so if you find yourself pressed for time, feel free to drop any part of it.</p>
+
+    <div id="clock" class="clock">00:00:00</div>
+
+
+    <script>
+        // 24-Hour Clock Logic
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString('en-GB', {
+                hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+            });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+    </script>
+</body>
+</html>
